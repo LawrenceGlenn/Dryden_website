@@ -21,39 +21,13 @@ $('document').ready(function() {
     .attr("opacity", .4)
     .attr("fill", "gray");
 
-  var g = svg.append("g")
-    .attr("class", "homeButton");
+  createNavButton("home", "home.html", 0);
 
-  g.append("rect")
-    .attr("height", 18)
-    .attr("width", width)
-    .attr("stroke", "black")
-    .attr("class", "navHomeBackground")
-    .attr("fill", "pink")
-    .attr("opacity", .6)
-    .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-      
-  g.append("text")
-    .attr("y", 18)
-    .attr('transform', 'translate(' + (margin.left*2) + ', ' + (margin.top-2) + ')')
-    .text("HOME")
-    .attr("fill", "black");
+  createNavButton("about", "about.html", 1);
 
-  g.append("a")
-    .attr("xlink:href", "home.html")
-    .append("rect")
-      .attr("height", 18)
-      .attr("width", width)
-      .attr("opacity", 0)
-      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
-      .on('mouseover', function(d){
-        return changeFill(".navHomeBackground", "orange");
-      })
-      .on('mouseout', function(d){
-        return changeFill(".navHomeBackground", "pink");
-      })
-      .on("click", click);
+  createNavButton("music", "music.html", 2);
 
+  createNavButton("contact", "contact.html", 3);
 
 
   function changeFill(selection, color){
@@ -62,6 +36,42 @@ $('document').ready(function() {
   }
 
   function click(){
+
+  }
+
+  function createNavButton(name, link, index){
+
+  var g = svg.append("g")
+    .attr("class", name+"Button");
+
+  g.append("rect")
+    .attr("height", 18)
+    .attr("width", width)
+    .attr("stroke", "black")
+    .attr("class", "nav"+name+"Background")
+    .attr("fill", "pink")
+    .attr("opacity", .6)
+    .attr('transform', 'translate(' + margin.left + ', ' + (margin.top+(index*22)) + ')');
+      
+  g.append("text")
+    .attr("y", 18)
+    .attr('transform', 'translate(' + (margin.left*2) + ', ' + (margin.top-2+(index*22)) + ')')
+    .text(name)
+    .attr("fill", "black");
+
+  g.append("a")
+    .attr("xlink:href", link)
+    .append("rect")
+      .attr("height", 18)
+      .attr("width", width)
+      .attr("opacity", 0)
+      .attr('transform', 'translate(' + margin.left + ', ' + (margin.top+(index*22)) + ')')
+      .on('mouseover', function(d){
+        return changeFill(".nav"+name+"Background", "orange");
+      })
+      .on('mouseout', function(d){
+        return changeFill(".nav"+name+"Background", "pink");
+      });
 
   }
 });
